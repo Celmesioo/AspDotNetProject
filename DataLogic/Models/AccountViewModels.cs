@@ -65,6 +65,14 @@ namespace DataLogic.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Firstname")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Latname")]
+        public string LastName { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
