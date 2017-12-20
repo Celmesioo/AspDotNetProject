@@ -22,3 +22,8 @@ select,
 textarea {
     max-width: 280px;
 }
+.post-section{
+    border: 2px solid black;
+    margin: 10px;
+    min-height: 200px;
+}

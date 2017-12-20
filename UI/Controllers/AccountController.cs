@@ -180,11 +180,12 @@ namespace UI.Controllers
 
         public ActionResult Details()
         {
+            UserSiteModel model = new UserSiteModel();
             var id = User.Identity.GetUserId();
             using (var context = new ApplicationDbContext())
             {
-                var user = context.Users.Find(id);
-                return View(user);
+                model.User = context.Users.Find(id);
+                return View(model);
             }
         }
 

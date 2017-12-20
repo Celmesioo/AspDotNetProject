@@ -1,4 +1,4 @@
-﻿@model DataLogic.Models.ApplicationUser
+﻿@model DataLogic.Models.UserSiteModel
 
 @{
     ViewBag.Title = "Details";
@@ -6,35 +6,48 @@
 
 <h2>Details</h2>
 
-<div>
+<div class="col-md-3">
     <h4>ApplicationUser</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.User.FirstName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FirstName)
+            @Html.DisplayFor(model => model.User.FirstName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.User.LastName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LastName)
+            @Html.DisplayFor(model => model.User.LastName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Bio)
+            @Html.DisplayNameFor(model => model.User.Bio)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Bio)
+            @Html.DisplayFor(model => model.User.Bio)
         </dd>
+        
     </dl>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.User.Id }) |
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-</p>
+<div class="col-md-7" style="background-color: red">
+    <h2>Posts</h2>
+    <div class="post-section">
+        <div>
+            @Html.TextAreaFor(model => model.Posts.Content, new { @class = "form-control"});
+        </div>
+    </div>
+</div>
+<div class="col-md-2" style="background-color: green">
+    <h4>Friends</h4>
+</div>
+
