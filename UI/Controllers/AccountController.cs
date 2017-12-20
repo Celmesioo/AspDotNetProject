@@ -178,6 +178,16 @@ namespace UI.Controllers
             return View(model);
         }
 
+        public ActionResult Details()
+        {
+            var id = User.Identity.GetUserId();
+            using (var context = new ApplicationDbContext())
+            {
+                var user = context.Users.Find(id);
+                return View(user);
+            }
+        }
+
         //
         // GET: /Account/ConfirmEmail
         //[AllowAnonymous]
