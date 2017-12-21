@@ -15,7 +15,7 @@ namespace UI
         protected void Application_Start()
         {
             Database.SetInitializer(
-                new DropCreateDatabaseIfModelChanges<ApplicationDbContext>());
+                new DropCreateDatabaseAlways<ApplicationDbContext>());
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
