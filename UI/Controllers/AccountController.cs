@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using DataLogic.Models;
 using DataLogic.Repository;
+using DataLogic;
 
 namespace UI.Controllers
 {

@@ -12,7 +12,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using DataLogic.Models;
 
-namespace UI
+namespace DataLogic
 {
     public class EmailService : IIdentityMessageService
     {

@@ -1,6 +1,5 @@
-﻿using DataLogic.Models;
-using System;
-using System.Collections.Generic;
+﻿
+using DataLogic.Models;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
@@ -14,8 +13,7 @@ namespace UI
     {
         protected void Application_Start()
         {
-            Database.SetInitializer(
-                new DropCreateDatabaseAlways<ApplicationDbContext>());
+            Database.SetInitializer(new DataInitilizer());
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

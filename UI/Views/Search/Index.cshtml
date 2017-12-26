@@ -1,0 +1,27 @@
+﻿@model List<DataLogic.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div>
+    <h4>ApplicationUser</h4>
+    <hr />
+    <table class="table-bordered">
+        <tr>
+            <td>Förnamn</td>
+            <td>Efternamn</td>
+            <td>Mail</td>
+        </tr>
+        @foreach (var user in Model)
+        {
+        <tr>
+            <td>@user.FirstName</td>
+            <td>@user.LastName</td>
+            <td>@user.UserName</td>
+        </tr>
+        }
+    </table>
+</div>
