@@ -10,9 +10,8 @@ namespace DataLogic.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        //public string DateOfBirth { get; set; }
-        //public Image ProfilePicture { get; set; }
-
+        public string DateOfBirth { get; set; }
+        public string ProfilePicture { get; set; }
         public string Bio { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
