@@ -87,6 +87,9 @@ namespace DataLogic.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "ProfileImage")]
+        public byte[] ProfileImage { get; set; }
     }
 
     //public class ResetPasswordViewModel

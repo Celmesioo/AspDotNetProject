@@ -7,8 +7,14 @@
 <h2>Details</h2>
 
 <div class="col-md-3">
-    <h4>ApplicationUser</h4>
+    <h4> @Html.DisplayFor(model => model.User.FirstName)</h4>
     <hr />
+    <img src="@Url.Action("Image", "Home", new { id = Model.User.Id} )" style="width:160px;height:160px; background: #FFFFFF;
+    margin: auto;
+    -moz-border-radius: 60px;
+    border-radius: 100px;
+    padding: 6px;
+    box-shadow: 0px 0px 20px #888;" />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.User.FirstName)
@@ -33,7 +39,7 @@
         <dd>
             @Html.DisplayFor(model => model.User.Bio)
         </dd>
-        
+
     </dl>
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.User.Id }) |
