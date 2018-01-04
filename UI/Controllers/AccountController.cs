@@ -192,10 +192,9 @@ namespace UI.Controllers
             return View(model);
         }
 
-        public ActionResult Details()
+        public ActionResult Details( string id)
         {
             UserSiteModel model = new UserSiteModel();
-            var id = User.Identity.GetUserId();
             using (var context = new ApplicationDbContext())
             {
                 model.User = context.Users.Find(id);

@@ -75,13 +75,8 @@ namespace UI.Controllers
 
         public ActionResult Image(string id)
         {
-            
             using (var context = new ApplicationDbContext())
             {
-                if (id == null)
-                {
-                    id = User.Identity.GetUserId();
-                }
                 var user = context.Users.Find(id);
                 return File(user.ProfileImage, "image/png");
             }
