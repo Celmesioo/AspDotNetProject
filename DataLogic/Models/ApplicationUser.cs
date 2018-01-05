@@ -35,6 +35,12 @@ namespace DataLogic.Models
         public string User2Id { get; set; }
         public virtual ApplicationUser User2 { get; set; }
 
-        public int? Status { get; set; }
+        public StatusCode Status { get; set; }
+    }
+
+    public enum StatusCode
+    {
+        Pending = 0,
+        Accepted = 1
     }
 }

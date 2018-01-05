@@ -10,9 +10,9 @@
 <div class="col-md-3">
     <h4>
         @Html.DisplayFor(model => model.User.FirstName) @Html.DisplayFor(model => model.User.LastName)
-        @if (Model.User.Id != User.Identity.GetUserId())
+        @if (Model.User.Id != User.Identity.GetUserId() && !Model.AreFriends)
         {
-            @Html.ActionLink("Add", "Add", new { id = Model.User.Id});
+            @Html.ActionLink("Add", "SendRequest", new { id = Model.User.Id});
         }
     </h4>
    
@@ -57,11 +57,23 @@
     <h2>Posts</h2>
     <div class="post-section">
         <div>
-            @Html.TextAreaFor(model => model.Posts.Content, new { @class = "form-control"});
+            
         </div>
     </div>
 </div>
 <div class="col-md-2" style="background-color: green">
     <h4>Friends</h4>
+    @if (Model.User.Id == User.Identity.GetUserId())
+    {
+        <h4>Friend requests</h4>
+        foreach (var user in Model.FriendRequests)
+        {
+            <div>
+                <h6>@user.FirstName @user.LastName</h6>
+                @Html.ActionLink("Accept", "RequestAccepted", new { id = user.Id});
+            </div>
+        }
+    }
+
 </div>
 

@@ -8,6 +8,7 @@ using DataLogic;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.IO;
+using System.Linq;
 
 namespace UI.Controllers
 {
@@ -198,22 +199,49 @@ namespace UI.Controllers
             using (var context = new ApplicationDbContext())
             {
                 model.User = context.Users.Find(id);
+                if(id == User.Identity.GetUserId())
+                {
+                    var requests = context.Friendships.Where(x => x.User2Id == id && x.Status == 0).Select(c => c.User1Id).ToList();
+                    model.FriendRequests = context.Users.Where(x => requests.Contains(x.Id)).ToList();
+                }
+                else
+                {
+                    var userID = User.Identity.GetUserId();
+                    var result = context.Friendships.Where(x => x.User1Id == userID && x.User2Id == id || x.User1Id == id && x.User2Id == userID);
+                    if (result != null)
+                    {
+                        model.AreFriends = true;
+                    }
+                }
                 return View(model);
             }
         }
 
-        public ActionResult Add(string id)
+        public ActionResult SendRequest(string id)
         {
             using (var context = new ApplicationDbContext())
             {
                 var userId = User.Identity.GetUserId();
                 Friendship f = new Friendship();
-                    f.User1Id = userId;
-                    f.User2Id = id;
+                f.User1Id = userId;
+                f.User2Id = id;
+                f.Status = 0;
                 context.Friendships.Add(f);
                 context.SaveChanges();
             }
-            return RedirectToAction("Index", "Home", new { });
+            return RedirectToAction("Details", new { id });
+        }
+
+        public ActionResult RequestAccepted(string id)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var loggedInUser = User.Identity.GetUserId();
+                var result = context.Friendships.Where(x => x.User1Id == id && x.User2Id == loggedInUser).First();
+                result.Status = (StatusCode)1;
+                context.SaveChanges();
+            }
+            return RedirectToAction("Details", new { id});
         }
 
         //
