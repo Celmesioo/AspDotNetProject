@@ -1,4 +1,5 @@
 ﻿@model DataLogic.Models.UserSiteModel
+@using Microsoft.AspNet.Identity
 
 @{
     ViewBag.Title = "Details";
@@ -7,8 +8,15 @@
 <h2>Details</h2>
 
 <div class="col-md-3">
-    <h4> @Html.DisplayFor(model => model.User.FirstName)</h4>
-    <hr />
+    <h4>
+        @Html.DisplayFor(model => model.User.FirstName) @Html.DisplayFor(model => model.User.LastName)
+        @if (Model.User.Id != User.Identity.GetUserId())
+        {
+            @Html.ActionLink("Add", "Add", new { id = Model.User.Id});
+        }
+    </h4>
+   
+        <hr />
     <img src="@Url.Action("Image", "Home", new { id = Model.User.Id} )" style="width:160px;height:160px; background: #FFFFFF;
     margin: auto;
     -moz-border-radius: 60px;

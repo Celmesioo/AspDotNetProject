@@ -14,6 +14,10 @@ namespace DataLogic.Models
         public string Bio { get; set; }
         public byte[] ProfileImage { get; set; }
 
+        public ICollection<Friendship> FriendRequestsMade { get; set; }
+
+        public ICollection<Friendship> FriendRequestsAccepted { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -21,7 +25,16 @@ namespace DataLogic.Models
             // Add custom user claims here
             return userIdentity;
         }
+    }
 
-        public virtual List<PostModel> Posts { get; set; }
+    public class Friendship
+    {
+        public string User1Id { get; set; }
+        public virtual ApplicationUser User1 { get; set; }
+
+        public string User2Id { get; set; }
+        public virtual ApplicationUser User2 { get; set; }
+
+        public int? Status { get; set; }
     }
 }

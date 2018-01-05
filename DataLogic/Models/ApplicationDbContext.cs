@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 
 namespace DataLogic.Models
@@ -14,7 +15,28 @@ namespace DataLogic.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Friendship> Friendships { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Friendship>()
+        .HasKey(x => new { x.User1Id, x.User2Id });
+
+            modelBuilder.Entity<Friendship>().HasRequired(x => x.User1)
+               .WithMany(y => y.FriendRequestsMade)
+               .HasForeignKey(x => x.User1Id).WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Friendship>()
+                .HasRequired(x => x.User2)
+                .WithMany(y => y.FriendRequestsAccepted)
+                .HasForeignKey(x => x.User2Id);
+
+            base.OnModelCreating(modelBuilder);
+        }
+
         
+
     }
 
     public class DataInitilizer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>

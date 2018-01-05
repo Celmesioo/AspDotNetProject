@@ -202,6 +202,20 @@ namespace UI.Controllers
             }
         }
 
+        public ActionResult Add(string id)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var userId = User.Identity.GetUserId();
+                Friendship f = new Friendship();
+                    f.User1Id = userId;
+                    f.User2Id = id;
+                context.Friendships.Add(f);
+                context.SaveChanges();
+            }
+            return RedirectToAction("Index", "Home", new { });
+        }
+
         //
         // GET: /Account/ConfirmEmail
         //[AllowAnonymous]

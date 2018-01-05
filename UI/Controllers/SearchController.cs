@@ -1,4 +1,5 @@
 ﻿using DataLogic.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace UI.Controllers
         {
             using (var context = new ApplicationDbContext())
             {
-                var users  = context.Users.Where(x => x.UserName.Contains(input)).ToList();
+                var users  = context.Users.Where(x => x.FirstName.Contains(input) || x.LastName.Contains(input)).ToList();
                 return View(users.ToList());
             }
         }

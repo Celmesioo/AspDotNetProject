@@ -28,6 +28,10 @@ textarea {
     min-height: 200px;
 }
 
-.search-margin{
+.search-margin {
+    margin-top: 10px;
+}
+
+.search-result{
     margin-top: 10px;
 }
