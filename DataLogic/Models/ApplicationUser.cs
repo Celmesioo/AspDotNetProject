@@ -18,6 +18,8 @@ namespace DataLogic.Models
 
         public ICollection<Friendship> FriendRequestsAccepted { get; set; }
 
+        public virtual ICollection<PostModel> posts { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
