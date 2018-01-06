@@ -199,6 +199,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\img\defaultImage.png" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -251,6 +252,7 @@
     <Content Include="Web.config" />
     <Content Include="Views\Account\Details.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Account\InspectRequests.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

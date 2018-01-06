@@ -1,0 +1,23 @@
+﻿@model DataLogic.Models.UserSiteModel
+
+@{
+    ViewBag.Title = "InspectRequests";
+}
+
+<h2>InspectRequests</h2>
+<div>
+
+
+        @foreach (var user in Model.FriendRequests)
+    {
+        <div class="card" style="width: 20rem;">
+            <img class="card-img-top image-size" src="@Url.Action("Image", "Home", new { id = user.Id} )" alt="Card image cap">
+            <div class="card-block">
+                <h4 class="card-title">@user.FirstName @user.LastName</h4>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                @Html.ActionLink("Add", "RequestAccepted", new { id = user.Id }, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+}
+
+</div>

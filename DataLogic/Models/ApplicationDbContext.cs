@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Data.Entity;
+using System.Drawing;
+using System.IO;
+using System.Web;
 
 namespace DataLogic.Models
 {
@@ -34,32 +38,41 @@ namespace DataLogic.Models
 
             base.OnModelCreating(modelBuilder);
         }
-
-        
-
     }
 
     public class DataInitilizer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext context)
         {
-            var store = new UserStore<ApplicationUser>(context);
-            var manager = new ApplicationUserManager(store);
+            var passwordHash = new PasswordHasher();
+            string password = passwordHash.HashPassword("123");
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 100; i++)
             {
                 var user = new ApplicationUser
                 {
-                    UserName = $"user{i}@mail.com",
-                    Email = $"user{i}@mail.com",
-                    FirstName = $"User{i}",
-                    LastName = $"Lastname{i}"
+                    UserName = $"User{i}@mail.com",
+                    Email = $"User{i}@mail.com",
+                    PasswordHash = password,
+                    FirstName = "User" + i,
+                    LastName = "Lastname" + i,
+                    ProfileImage = GetDefaultImage(),
+                    SecurityStamp = "ndaphn3naisjd903rmpAID03dn83nan09Niuhaklnf9"
+                    
                 };
-                manager.CreateAsync(user, "123").Wait();
+                context.Users.Add(user);
             }
-
-
+            context.SaveChanges();
             base.Seed(context);
+        }
+
+        private byte[] GetDefaultImage()
+        {
+            byte[] imageData = null;
+            string path = HttpContext.Current.Server.MapPath("~/Content/img/defaultImage.png");
+            imageData = File.ReadAllBytes(path);
+
+            return imageData;
         }
     }
 }

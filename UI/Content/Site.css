@@ -35,3 +35,14 @@ textarea {
 .search-result{
     margin-top: 10px;
 }
+
+.pending-request{
+    background-color: red;
+}
+.no-request{
+    display:none;
+}
+
+.image-size {
+    width: 100%;
+}

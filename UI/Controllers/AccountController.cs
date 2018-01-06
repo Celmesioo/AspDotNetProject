@@ -91,50 +91,6 @@ namespace UI.Controllers
             }
         }
 
-        //
-        // GET: /Account/VerifyCode
-        //[AllowAnonymous]
-        //public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
-        //{
-        //    // Require that the user has already logged in via username/password or external login
-        //    if (!await SignInManager.HasBeenVerifiedAsync())
-        //    {
-        //        return View("Error");
-        //    }
-        //    return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
-        //}
-
-        //
-        // POST: /Account/VerifyCode
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
-
-        //    // The following code protects for brute force attacks against the two factor codes. 
-        //    // If a user enters incorrect codes for a specified amount of time then the user account 
-        //    // will be locked out for a specified amount of time. 
-        //    // You can configure the account lockout settings in IdentityConfig
-        //    var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
-        //    switch (result)
-        //    {
-        //        case SignInStatus.Success:
-        //            return RedirectToLocal(model.ReturnUrl);
-        //        case SignInStatus.LockedOut:
-        //            return View("Lockout");
-        //        case SignInStatus.Failure:
-        //        default:
-        //            ModelState.AddModelError("", "Invalid code.");
-        //            return View(model);
-        //    }
-        //}
-
-        //
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
@@ -207,7 +163,7 @@ namespace UI.Controllers
                 else
                 {
                     var userID = User.Identity.GetUserId();
-                    var result = context.Friendships.Where(x => x.User1Id == userID && x.User2Id == id || x.User1Id == id && x.User2Id == userID);
+                    var result = context.Friendships.Where(x => x.User1Id == userID && x.User2Id == id || x.User1Id == id && x.User2Id == userID).FirstOrDefault();
                     if (result != null)
                     {
                         model.AreFriends = true;
@@ -242,6 +198,19 @@ namespace UI.Controllers
                 context.SaveChanges();
             }
             return RedirectToAction("Details", new { id});
+        }
+
+        public ActionResult InspectRequests()
+        {
+            UserSiteModel model = new UserSiteModel();
+            
+            using (var context = new ApplicationDbContext())
+            {
+                model.User = context.Users.Find(User.Identity.GetUserId());
+                var requests = context.Friendships.Where(x => x.User2Id == model.User.Id && x.Status == 0).Select(c => c.User1Id).ToList();
+                model.FriendRequests = context.Users.Where(x => requests.Contains(x.Id)).ToList();
+            }
+            return View(model);
         }
 
         //
