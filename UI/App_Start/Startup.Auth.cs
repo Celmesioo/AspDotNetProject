@@ -6,6 +6,8 @@ using Microsoft.Owin.Security.Cookies;
 using Owin;
 using DataLogic.Models;
 using DataLogic;
+using DataLogic.Context;
+using DataLogic.Entities;
 
 namespace UI
 {

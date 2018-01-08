@@ -1,4 +1,5 @@
-﻿using DataLogic.Models;
+﻿using DataLogic.Context;
+using DataLogic.Models;
 using System.Linq;
 using System.Web.Mvc;
 

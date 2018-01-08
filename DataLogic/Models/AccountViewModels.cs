@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DataLogic.Entities;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DataLogic.Models

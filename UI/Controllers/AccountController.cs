@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity.Owin;
 using System.IO;
 using System.Linq;
 using System.Web.Helpers;
+using DataLogic.Entities;
+using DataLogic.Context;
 
 namespace UI.Controllers
 {

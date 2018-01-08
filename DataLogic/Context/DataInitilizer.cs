@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using DataLogic.Entities;
+using Microsoft.AspNet.Identity;
 using System.Data.Entity;
 using System.IO;
 using System.Web;
 
-namespace DataLogic.Models
+namespace DataLogic.Context
 {
     public class DataInitilizer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
     {

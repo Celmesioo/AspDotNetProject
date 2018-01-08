@@ -11,6 +11,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using DataLogic.Models;
+using DataLogic.Entities;
+using DataLogic.Context;
 
 namespace DataLogic
 {

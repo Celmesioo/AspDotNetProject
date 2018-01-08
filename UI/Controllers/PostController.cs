@@ -1,4 +1,6 @@
-﻿using DataLogic.Models;
+﻿using DataLogic.Context;
+using DataLogic.Entities;
+using DataLogic.Models;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -23,6 +25,7 @@ namespace UI.Controllers
             return View(model);
         }
 
+        //Spara post
         [HttpPost]
         public ActionResult Create(Post post, string id)
         {

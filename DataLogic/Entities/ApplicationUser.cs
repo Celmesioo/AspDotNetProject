@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace DataLogic.Models
+namespace DataLogic.Entities
 {
     public class ApplicationUser : IdentityUser
     {

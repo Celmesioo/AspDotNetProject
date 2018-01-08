@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using DataLogic.Entities;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Data.Entity;
 using System.Drawing;
 
-namespace DataLogic.Models
+namespace DataLogic.Context
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
