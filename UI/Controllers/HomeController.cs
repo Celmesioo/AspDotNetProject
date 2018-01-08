@@ -3,7 +3,6 @@ using DataLogic.Repository;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -15,7 +14,8 @@ namespace UI.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var model = new HomeViewModel();
+            return View(model);
         }
 
         public ActionResult About()

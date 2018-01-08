@@ -1,31 +1,30 @@
 ﻿@model DataLogic.Models.UserSiteModel
 @using Microsoft.AspNet.Identity
+@using DataLogic.Internationalization
 
 @{
     ViewBag.Title = "Details";
 }
-
-<h2>Details</h2>
 
 <div class="col-md-3">
     <h4>
         @Html.DisplayFor(model => model.User.FirstName) @Html.DisplayFor(model => model.User.LastName)
         @if (Model.User.Id != User.Identity.GetUserId() && !Model.AreFriends)
         {
-            @Html.ActionLink("Add", "SendRequest", new { id = Model.User.Id});
+            @Html.ActionLink(AppResources.Add, "SendRequest", new { id = Model.User.Id }, new { @class = "btn btn-primary" });
         }
     </h4>
-   
-        <hr />
+
+    <hr />
     <img src="@Url.Action("Image", "Home", new { id = Model.User.Id} )" style="width:160px;height:160px; background: #FFFFFF;
     margin: auto;
     -moz-border-radius: 60px;
     border-radius: 100px;
     padding: 6px;
     box-shadow: 0px 0px 20px #888;" />
-    <dl class="dl-horizontal">
+    <dl class="person-label">
         <dt>
-            @Html.DisplayNameFor(model => model.User.FirstName)
+            @AppResources.Firstname
         </dt>
 
         <dd>
@@ -33,7 +32,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.User.LastName)
+            @AppResources.Lastname
         </dt>
 
         <dd>
@@ -57,32 +56,28 @@
     <h2>Posts</h2>
     <div class="post-section">
         <div>
-           <p>
-               <table class=" table">
-                   <tr>
-                       <th>
-                           @Html.DisplayNameFor(model =>  )
-                       </th>
+            <p>
+                <table class=" table">
+                    <tr>
+                        <th>
+                            @*@Html.DisplayNameFor(model =>  )*@
+                        </th>
 
-                   </tr>
-               </table>
-           </p>
-           
+                    </tr>
+                </table>
+            </p>
+
         </div>
     </div>
 </div>
-<div class="col-md-2" style="background-color: green">
-    <h4>Friends</h4>
-    @if (Model.User.Id == User.Identity.GetUserId())
+<div class="col-md-2" style="border: 2px solid #ccc; padding: 2px;">
+    <h4>@AppResources.Friends</h4>
+    @foreach (var friend in Model.Friends)
     {
-        <h4>Friend requests</h4>
-        foreach (var user in Model.FriendRequests)
-        {
-            <div>
-                <h6>@user.FirstName @user.LastName</h6>
-                @Html.ActionLink("Accept", "RequestAccepted", new { id = user.Id});
-            </div>
-        }
+        <div style="padding: 1px; margin: 2px 0; border-bottom: 1px solid #999;">
+            <img src="@Url.Action("Image", "Home", new { id = friend.Id }) " style="width:30px;height:30px; background: #FFFFFF;" />
+            @Html.ActionLink(friend.FirstName + " " + friend.LastName, "Details", new { id = friend.Id })
+        </div>
     }
 
 </div>

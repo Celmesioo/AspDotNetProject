@@ -8,7 +8,7 @@ namespace DataLogic.Models
     public class UserSiteModel
     {
         public ApplicationUser User { get; set; }
-        public List<ApplicationUser> FriendRequests { get; set; }
+        public List<ApplicationUser> Friends { get; set; }
         public bool AreFriends { get; set; }
     }
 }

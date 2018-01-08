@@ -4,16 +4,18 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Hittade användare:</h2>
 
-<div>
-    <h4>ApplicationUser</h4>
+<div style="max-height:750px; overflow-y:scroll;">
     <hr />
     @foreach (var user in Model)
     {
-        var namn = user.FirstName + ' ' + user.LastName;
-        <div class="search-result">
-            <span><img src="@Url.Action("Image", "Home", new { id = user.Id} )" style="width:50px;height:50px; background: #FFFFFF; margin: auto;" /></span>@Html.ActionLink(namn, "Details", "Account", new {id = user.Id }, null);
+    <div class="card front-cards" style="width: 20rem;">
+        <img class="card-img-top image-size" src="@Url.Action("Image", "Home", new { id = user.Id} )" alt="Card image cap">
+        <div class="card-block">
+            <h4 class="card-title">@Html.ActionLink(user.FirstName + " " + user.LastName, "Details", "Account", new { id = user.Id }, null)</h4>
+
         </div>
+    </div>
      }
 </div>

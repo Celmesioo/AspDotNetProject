@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
+@using DataLogic.Internationalization
 @using DataLogic.Models
 @model LogInPartialViewModel
 @if (Request.IsAuthenticated)
@@ -6,27 +7,32 @@
     Model.SetUser(User.Identity.GetUserId());
     var fullname = Model.User.FirstName + " " + Model.User.LastName;
     <div>
-        
-       
-        
+
+
+
     </div>
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
 
+        <div class="card front-cards" style="width: 15rem;">
+            <img style="width:30px; height: 30px;" src="@Url.Action("Image", "Home", new { id = User.Identity.GetUserId()} )" alt="Card image cap">
+            <div class="card-block">
+                <h6 class="card-title">@Html.ActionLink(fullname, "Details", "Account", new { id = User.Identity.GetUserId() }, null)</h6>
 
+            </div>
+            <button class="@(@Model.PendingFriendRequest ? "pending-request" : "no-request")" type="button" onclick="location.href='@Url.Action("InspectRequests", "Account")'"><span class="glyphicon glyphicon-user " aria-hidden="true"></span></button>
+        </div>
         <ul class="nav navbar-nav navbar-right ">
-            <li><img src="@Url.Action("Image", "Home", new { id = User.Identity.GetUserId()} )" style="width:30px;height:30px; " /></li>
-            <li> @Html.ActionLink(fullname, "Details", "Account", new { id = User.Identity.GetUserId() }, htmlAttributes: new { title = "Manage" })</li>
-            <li><button class="@(@Model.PendingFriendRequest ? "pending-request" : "no-request")" type="button" onclick="location.href='@Url.Action("InspectRequests", "Account")'"><span class="glyphicon glyphicon-user " aria-hidden="true"></span></button></li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">@AppResources.LogOff</a></li>
         </ul>
     }
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink(AppResources.Register, "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink(AppResources.LogIn, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }

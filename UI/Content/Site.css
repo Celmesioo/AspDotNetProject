@@ -37,7 +37,8 @@ textarea {
 }
 
 .pending-request{
-    background-color: red;
+    border: 1px solid red;
+    background: blue;
 }
 .no-request{
     display:none;
@@ -45,4 +46,32 @@ textarea {
 
 .image-size {
     width: 100%;
+    height: 19rem;
+}
+
+.front-cards{
+    float: left;
+    margin:5px;
+    padding: 2px;
+    border: 2px solid #ccc;
+}
+.clear {
+    clear: left;
+    display: block;
+}
+
+.person-label dt{
+    float: left;
+    margin: 0 3px;
+}
+
+.search-bar > * {
+    float: left;
+    position: relative;
+    top: 50%;
+    transform: translateY(25%);
+    margin: 0 5px;
+}
+.search-bar input{
+    max-width: 150px;
 }
