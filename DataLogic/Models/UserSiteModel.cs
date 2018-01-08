@@ -9,6 +9,7 @@ namespace DataLogic.Models
     {
         public ApplicationUser User { get; set; }
         public List<ApplicationUser> Friends { get; set; }
+        public List<Post> Posts { get; set; }
         public bool AreFriends { get; set; }
     }
 }

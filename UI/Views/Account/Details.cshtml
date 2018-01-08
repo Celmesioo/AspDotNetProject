@@ -57,23 +57,15 @@
     }
     
 </div>
-<div class="col-md-7" style="background-color: red">
+<div class="col-md-7">
     <h2>Posts</h2>
-    <div class="post-section">
-        <div>
-            <p>
-                <table class=" table">
-                    <tr>
-                        <th>
-                            @*@Html.DisplayNameFor(model =>  )*@
-                        </th>
-
-                    </tr>
-                </table>
-            </p>
-
+        @Html.ActionLink("Skriv ett inlägg", "Create", "Post", new { id = Model.User.Id }, null);
+    @foreach (var post in Model.Posts)
+    {
+        <div class="post-section">
+            <p>@post.Content</p>
         </div>
-    </div>
+    }
 </div>
 
 @if (Model.User.Id == User.Identity.GetUserId())

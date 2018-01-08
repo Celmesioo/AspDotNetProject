@@ -18,6 +18,7 @@ namespace DataLogic.Models
         }
 
         public DbSet<Friendship> Friendships { get; set; }
+        public DbSet<Post> Posts { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -33,7 +34,7 @@ namespace DataLogic.Models
                 .WithMany(y => y.FriendRequestsAccepted)
                 .HasForeignKey(x => x.User2Id);
 
-            modelBuilder.Entity<ApplicationUser>().HasMany(x => x.posts).WithRequired(x => x.Writer);
+            modelBuilder.Entity<ApplicationUser>().HasMany(x => x.Posts).WithRequired(x => x.Writer);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -3,19 +3,17 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.Owin.Security;
 using DataLogic.Models;
-using DataLogic.Repository;
 using DataLogic;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
 using System.Web.Helpers;
 
 namespace UI.Controllers
 {
     [Authorize]
-    public class AccountController : ApplicationBaseController
+    public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -245,9 +243,22 @@ namespace UI.Controllers
                 var friendlist2 = context.Friendships.Where(x => x.User1Id == id && x.Status == (StatusCode)1).Select(c => c.User2Id).ToList();
                 var allFriends = friendlist1.Concat(friendlist2);
                 model.Friends = context.Users.Where(x => allFriends.Contains(x.Id)).ToList();
+                model.Posts = context.Posts.Where(x => x.User.Id == id).ToList();
 
                 return View(model);
             }
+        }
+        [HttpPost]
+        public ActionResult AddPost(Post post, string id)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                post.Writer = context.Users.Find(User.Identity.GetUserId());
+                post.User = context.Users.Find(id);
+                context.Posts.Add(post);
+                context.SaveChanges();
+            }
+            return RedirectToAction("Details", new { id = post.User });
         }
 
         public ActionResult SendRequest(string id)

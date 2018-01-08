@@ -1,5 +1,4 @@
 ﻿using DataLogic.Models;
-using DataLogic.Repository;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
@@ -10,7 +9,7 @@ using System.Web.Mvc;
 
 namespace UI.Controllers
 {
-    public class HomeController : ApplicationBaseController
+    public class HomeController : Controller
     {
         public ActionResult Index()
         {

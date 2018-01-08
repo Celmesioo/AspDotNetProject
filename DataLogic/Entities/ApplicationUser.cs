@@ -10,7 +10,6 @@ namespace DataLogic.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string DateOfBirth { get; set; }
         public string Bio { get; set; }
         public byte[] ProfileImage { get; set; }
         public bool IsSearchAble { get; set; }
@@ -19,7 +18,7 @@ namespace DataLogic.Models
 
         public ICollection<Friendship> FriendRequestsAccepted { get; set; }
 
-        public virtual ICollection<PostModel> posts { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
