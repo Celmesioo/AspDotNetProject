@@ -100,17 +100,39 @@ namespace UI.Controllers
             }
         }
 
-        public ActionResult SaveEdit(ApplicationUser model, string id)
+        public ActionResult SaveEdit([Bind(Exclude = "ProfileImage")]ApplicationUser model, string id)
         {
 
             ApplicationUser user = new ApplicationUser();
+
+            byte[] imageData = null;
+            if (Request.Files.Count > 0)
+            {
+                HttpPostedFileBase poImgFile = Request.Files["ProfileImage"];
+
+                using (var binary = new BinaryReader(poImgFile.InputStream))
+                {
+                    imageData = binary.ReadBytes(poImgFile.ContentLength);
+                }
+            }
+
+
             using (var context = new ApplicationDbContext())
             {
                 user = context.Users.Find(id);
+                
+                if (imageData.Count() == 0)
+                {
+                    imageData = user.ProfileImage;
+                }
+
+                
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
                 user.Bio = model.Bio;
                 user.IsSearchAble = model.IsSearchAble;
+
+                user.ProfileImage = imageData;
 
                 context.SaveChanges();
             }
