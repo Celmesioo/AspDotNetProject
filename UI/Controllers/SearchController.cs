@@ -12,7 +12,7 @@ namespace UI.Controllers
         {
             using (var context = new ApplicationDbContext())
             {
-                var users  = context.Users.Where(x => x.FirstName.Contains(input) || x.LastName.Contains(input)).ToList();
+                var users  = context.Users.Where(x => (x.FirstName.Contains(input) || x.LastName.Contains(input)) && x.IsSearchAble == true).ToList();
                 return View(users.ToList());
             }
         }

@@ -110,6 +110,7 @@ namespace UI.Controllers
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
                 user.Bio = model.Bio;
+                user.IsSearchAble = model.IsSearchAble;
 
                 context.SaveChanges();
             }
@@ -148,14 +149,15 @@ namespace UI.Controllers
                 {
                     imageData = DataInitilizer.GetDefaultImage();
                 }
-              
+
 
                 var user = new ApplicationUser {
                     UserName = model.Email,
                     Email = model.Email,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
-                    ProfileImage = imageData
+                    ProfileImage = imageData,
+                    IsSearchAble = true
                 };
 
                 var result = await UserManager.CreateAsync(user, model.Password);

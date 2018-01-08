@@ -22,7 +22,9 @@ namespace DataLogic.Models
                     FirstName = "User" + i,
                     LastName = "Lastname" + i,
                     ProfileImage = GetDefaultImage(),
-                    SecurityStamp = "ndaphn3naisjd903rmpAID03dn83nan09Niuhaklnf9"
+                    SecurityStamp = "ndaphn3naisjd903rmpAID03dn83nan09Niuhaklnf9",
+                    IsSearchAble = true
+                    
                     
                 };
                 context.Users.Add(user);

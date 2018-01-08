@@ -48,9 +48,13 @@
         </dd>
 
     </dl>
-    <p>
+    @if (Model.User.Id == User.Identity.GetUserId())
+    {
+     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.User.Id }) |
-    </p>
+    </p> 
+    }
+    
 </div>
 <div class="col-md-7" style="background-color: red">
     <h2>Posts</h2>
@@ -70,15 +74,20 @@
         </div>
     </div>
 </div>
-<div class="col-md-2" style="border: 2px solid #ccc; padding: 2px;">
+
+@if (Model.User.Id == User.Identity.GetUserId())
+{
+    <div class="col-md-2" style="border: 2px solid #ccc; padding: 2px;">
     <h4>@AppResources.Friends</h4>
     @foreach (var friend in Model.Friends)
     {
-        <div style="padding: 1px; margin: 2px 0; border-bottom: 1px solid #999;">
-            <img src="@Url.Action("Image", "Home", new { id = friend.Id }) " style="width:30px;height:30px; background: #FFFFFF;" />
+            <div style="padding: 1px; margin: 2px 0; border-bottom: 1px solid #999;">
+                <img src="@Url.Action("Image", "Home", new { id = friend.Id }) " style="width:30px;height:30px; background: #FFFFFF;" />
             @Html.ActionLink(friend.FirstName + " " + friend.LastName, "Details", new { id = friend.Id })
-        </div>
+            </div>
     }
 
-</div>
+    </div>
+}
+
 
