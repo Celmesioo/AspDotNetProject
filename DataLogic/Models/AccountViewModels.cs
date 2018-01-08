@@ -56,4 +56,26 @@ namespace DataLogic.Models
         [Display(Name = "ProfileImage")]
         public byte[] ProfileImage { get; set; }
     }
+
+    public class ChangeViewModel
+    {
+        public ApplicationUser User { get; set; }
+
+        
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]
+        [DataType(DataType.Password)]
+        [Display(Name = "New Password")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm new password")]
+        public string ConfirmPassword { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Old password")]
+        public string OldPassword { get; set; }
+
+
+    }
 }

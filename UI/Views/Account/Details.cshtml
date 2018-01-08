@@ -50,8 +50,9 @@
     </dl>
     @if (Model.User.Id == User.Identity.GetUserId())
     {
-     <p>
+    <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.User.Id }) |
+        @Html.ActionLink("EditPassword", "EditPassword", new { id = Model.User.Id })
     </p> 
     }
     

@@ -140,6 +140,40 @@ namespace UI.Controllers
             return RedirectToAction("Details", new { id });
         }
 
+        public ActionResult EditPassword(string id)
+        {
+            var model = new ChangeViewModel();
+            using (var context = new ApplicationDbContext())
+            {
+                model.User = context.Users.Find(id);
+                return View(model);
+            }
+        }
+        
+        public ActionResult ChangePassword(string id, ChangeViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser user = new ApplicationUser();
+                PasswordHasher hash = new PasswordHasher();
+
+                using (var context = new ApplicationDbContext())
+                {
+                    var passwordHash = new PasswordHasher();
+                    string password = model.Password;
+                    string oldPassword = model.OldPassword;
+                    user = context.Users.Find(id);
+                    if (oldPassword == user.PasswordHash)
+                    {
+                        user.PasswordHash = model.Password;
+                        context.SaveChanges();
+                        return RedirectToAction("Details", new { id = user.Id });
+                    }
+                }
+            }
+            return RedirectToAction("EditPassword");
+        }
+
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
