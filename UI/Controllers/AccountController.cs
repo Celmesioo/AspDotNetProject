@@ -90,6 +90,33 @@ namespace UI.Controllers
             }
         }
 
+        public ActionResult Edit(string id)
+        {
+            ApplicationUser user = new ApplicationUser();
+            using (var context = new ApplicationDbContext())
+            {
+                user = context.Users.Find(id);
+                return View(user);
+            }
+        }
+
+        public ActionResult SaveEdit(ApplicationUser model, string id)
+        {
+
+            ApplicationUser user = new ApplicationUser();
+            using (var context = new ApplicationDbContext())
+            {
+                user = context.Users.Find(id);
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.Bio = model.Bio;
+
+                context.SaveChanges();
+            }
+
+            return RedirectToAction("Details", new { id });
+        }
+
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()

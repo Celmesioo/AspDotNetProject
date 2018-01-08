@@ -37,5 +37,6 @@ namespace DataLogic.Models
 
             base.OnModelCreating(modelBuilder);
         }
+
     }
 }
