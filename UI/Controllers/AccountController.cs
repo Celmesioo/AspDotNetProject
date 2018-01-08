@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
+using System.Web.Helpers;
 
 namespace UI.Controllers
 {
@@ -150,22 +151,20 @@ namespace UI.Controllers
             }
         }
         
-        public ActionResult ChangePassword(string id, ChangeViewModel model)
+        public ActionResult ChangePassword(ChangeViewModel model)
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser user = new ApplicationUser();
-                PasswordHasher hash = new PasswordHasher();
 
                 using (var context = new ApplicationDbContext())
                 {
+                    var user = context.Users.Find(User.Identity.GetUserId());
                     var passwordHash = new PasswordHasher();
-                    string password = model.Password;
-                    string oldPassword = model.OldPassword;
-                    user = context.Users.Find(id);
-                    if (oldPassword == user.PasswordHash)
+                    string password = passwordHash.HashPassword(model.Password);
+                    var doesPasswordMatch = Crypto.VerifyHashedPassword(user.PasswordHash, model.OldPassword);
+                    if (doesPasswordMatch)
                     {
-                        user.PasswordHash = model.Password;
+                        user.PasswordHash = password;
                         context.SaveChanges();
                         return RedirectToAction("Details", new { id = user.Id });
                     }
