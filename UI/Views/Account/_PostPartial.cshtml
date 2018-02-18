@@ -1,0 +1,8 @@
+﻿@model DataLogic.Models.UserSiteModel
+
+@foreach (var post in Model.Posts)
+{
+    <div class="post-section">
+        <p>@post.Content</p>
+    </div>
+}

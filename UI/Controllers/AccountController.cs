@@ -101,7 +101,7 @@ namespace UI.Controllers
             }
         }
 
-        public ActionResult SaveEdit([Bind(Exclude = "ProfileImage")]ApplicationUser model, string id)
+        public ActionResult SaveEdit([Bind(Exclude = "ProfileImage")]ApplicationUser model)
         {
 
             ApplicationUser user = new ApplicationUser();
@@ -120,7 +120,7 @@ namespace UI.Controllers
 
             using (var context = new ApplicationDbContext())
             {
-                user = context.Users.Find(id);
+                user = context.Users.Find(User.Identity.GetUserId());
                 
                 if (imageData.Count() == 0)
                 {
@@ -138,7 +138,7 @@ namespace UI.Controllers
                 context.SaveChanges();
             }
 
-            return RedirectToAction("Details", new { id });
+            return RedirectToAction("Details", new { id = User.Identity.GetUserId()});
         }
 
         public ActionResult EditPassword(string id)
@@ -250,7 +250,21 @@ namespace UI.Controllers
                 return View(model);
             }
         }
-        [HttpPost]
+
+        public ActionResult PostResult(string mail)
+        {
+            var model = new UserSiteModel();
+        
+            using (var context = new ApplicationDbContext())
+            {
+                var user = context.Users.Where(x => x.UserName == mail).SingleOrDefault();
+                model.Posts = context.Posts.Where(x => x.User.Id == user.Id).ToList();
+            }
+            
+            return PartialView("_PostPartial", model);
+        }
+
+    [HttpPost]
         public ActionResult AddPost(Post post, string id)
         {
             using (var context = new ApplicationDbContext())

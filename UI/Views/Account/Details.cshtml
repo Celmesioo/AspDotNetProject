@@ -40,6 +40,14 @@
         </dd>
 
         <dt>
+            <label>Email</label>
+        </dt>
+
+        <dd>
+            <p id="email">@Html.DisplayFor(model => model.User.Email)</p>
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.User.Bio)
         </dt>
 
@@ -50,37 +58,39 @@
     </dl>
     @if (Model.User.Id == User.Identity.GetUserId())
     {
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.User.Id }) |
-        @Html.ActionLink("EditPassword", "EditPassword", new { id = Model.User.Id })
-    </p> 
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.User.Id }) |
+            @Html.ActionLink("EditPassword", "EditPassword", new { id = Model.User.Id })
+        </p>
     }
-    
+
 </div>
-<div class="col-md-7">
+<div id="postContainer" class="col-md-7">
+
     <h2>Posts</h2>
-        @Html.ActionLink("Skriv ett inlägg", "Create", "Post", new { id = Model.User.Id }, null);
-    @foreach (var post in Model.Posts)
-    {
-        <div class="post-section">
-            <p>@post.Content</p>
-        </div>
-    }
+    <textarea id="postContent"></textarea>
+    <input type="button" id="addPost" value="Skicka inlägg" />
+    <div id="postContainer">
+    </div>
 </div>
 
 @if (Model.User.Id == User.Identity.GetUserId())
 {
     <div class="col-md-2" style="border: 2px solid #ccc; padding: 2px;">
-    <h4>@AppResources.Friends</h4>
-    @foreach (var friend in Model.Friends)
-    {
+        <h4>@AppResources.Friends</h4>
+        @foreach (var friend in Model.Friends)
+        {
             <div style="padding: 1px; margin: 2px 0; border-bottom: 1px solid #999;">
                 <img src="@Url.Action("Image", "Home", new { id = friend.Id }) " style="width:30px;height:30px; background: #FFFFFF;" />
-            @Html.ActionLink(friend.FirstName + " " + friend.LastName, "Details", new { id = friend.Id })
+                @Html.ActionLink(friend.FirstName + " " + friend.LastName, "Details", new { id = friend.Id })
             </div>
-    }
+        }
 
     </div>
 }
 
 
+@section Scripts{
+
+    <script src="~/Scripts/AddPost.js"></script>
+}
