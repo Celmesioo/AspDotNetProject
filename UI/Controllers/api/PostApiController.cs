@@ -26,6 +26,10 @@ namespace UI.Controllers.api
         [HttpPost]
         public void AddPost(Post post, string id)
         {
+            if(post.Content == null)
+            {
+                return;
+            }
             using (var context = new ApplicationDbContext())
             {
                 post.User = context.Users.Where(x => x.Id == id).SingleOrDefault();
